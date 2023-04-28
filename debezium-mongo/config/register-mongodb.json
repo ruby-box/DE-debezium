@@ -1,0 +1,21 @@
+{
+    "name": "inventory-connector",
+    "config": {
+        "connector.class" : "io.debezium.connector.mongodb.MongoDbConnector",
+        "tasks.max" : "1",
+        "mongodb.hosts" : "rs0/mongodb:27017",
+        "mongodb.name" : "dbserver1",
+        "mongodb.user" : "debezium",
+        "mongodb.password" : "dbz",
+        "database.include.list" : "inventory",
+        "database.history.kafka.bootstrap.servers" : "kafka:9092",
+        "snapshot.mode": "never",
+        "transforms":"unwrap",
+        "transforms.unwrap.type":"io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
+        "transforms.unwrap.delete.handling.mode":"rewrite",
+        "transforms.unwrap.add.headers":"op",
+        "transforms.unwrap.add.fields":"rs,collection,ts_ms,db",
+        "transforms.unwrap.flatten.struct":"true",
+        "transforms.unwrap.flatten.struct.delimiter":"."
+    }
+}
